@@ -24,3 +24,19 @@ start R, run:
 
 install.packages("rdyncall",repos="http://R-Forge.R-project.org")
 
+
+moving the lines
+
+#define X 1
+#define Y 2
+#define Z 3
+from systemic.h to integration.c
+
+build systemic
+
+move Systemic directory to /usr/local
+
+then:
+
+make -f Makefile.linux
+
