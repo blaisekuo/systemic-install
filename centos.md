@@ -1,18 +1,19 @@
 install centos from live cd
 
+yum install epel-release
+
 install mate desktop 
 
 yum groupinstall -y "MATE Desktop"
 
-dnf install lightdm
+systemctl disable gdm.service
 
-dnf install system-switch-displaymanager
+systemctl enable lightdm.service
 
-system-switch-displaymanger lightdm
 
 install kernel packages
 
-dnf install kernel-devel kernel-devel-4.11.8-300.fc26.x86_64
+yum install kernel-devel kernel-devel-3.10.0-862.el7.x86_64
 
 install vm guest add ons
 
