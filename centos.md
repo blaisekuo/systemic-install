@@ -1,61 +1,31 @@
-systemic-install
-installing systemic rv software on linux
+install centos from live cd
 
-Install centos from live cd
+install mate desktop 
 
-Get the systemic 2 package
+yum groupinstall -y "MATE Desktop"
 
-http://www.stefanom.org/d/systemic2/
+dnf install lightdm
 
-move the Systemoc directory to /usr/local
+dnf install system-switch-displaymanager
 
-apt-get install build-essential fakeroot devscripts
+system-switch-displaymanger lightdm
 
-apt-get install linux-headers-amd64 linux-headers-4.9.0-7-amd64
+install kernel packages
 
-install virtual box guest addons
+dnf install kernel-devel kernel-devel-4.11.8-300.fc26.x86_64
 
-install kernel headers
+install vm guest add ons
 
-apt-get install
+dnf install java-1.8.0-openjdk-devel f2c wget 2ping libssh R-core R-devel openssh-clients rsync gcc gcc-gfortran emacs gsl-devel R-reshape2 R-stringi R-htmltools R-rmarkdown R-markdown R-gplots R-rlang
 
-apt-get install gfortran f2c gsl-bin libgsl0-dev
+start R
 
-apt-get install r-base r-base-dev
+install.packages("rdyncall", repos="http://R-Forge.R-project.org")
 
-apt-get install default-jdk
+copy patched version of SYstemic from server
 
-start R, run:
+patched to fix a number of issues
 
-install.packages("rdyncall",repos="http://R-Forge.R-project.org")
+moved #DEFINE X,Y,Z lines from Systemic.h to integration.c
 
-moving the lines
-
-#define X 1 #define Y 2 #define Z 3 from systemic.h to integration.c
-
-apply patch
-
---- Makefile.linux.orig	2016-02-09 16:51:00.079545000 -0500 +++ Makefile.linux	2016-02-09 16:51:53.273322000 -0500 @@ -23,7 +23,7 @@ #UPDATE = --update --java UPDATE =
-
--ALLOBJECTS = objects/swift.o objects/periodogram.o objects/extras.o objects/mercury.o objects/integration.o objects/mcmc.o objects/utils.o objects/simplex.o objects/kernel.o objects/bootstrap.o objects/kl.o objects/qsortimp.o objects/lm.o objects/lm.o objects/hermite.o objects/ode.o objects/odex.o objects/sa.o objects/de.o +ALLOBJECTS = objects/swift.o objects/periodogram.o objects/extras.o objects/mercury.o objects/integration.o objects/mcmc.o objects/utils.o objects/simplex.o objects/kernel.o objects/bootstrap.o objects/kl.o objects/qsortimp.o objects/lm.o objects/lm.o objects/hermite.o objects/ode.o objects/odex.o objects/sa.o objects/de.o objects/gd.o
-
-linux: reqs src/.c src/.h $(ALLOBJECTS) gcc -shared -o libsystemic.so objects/*.o $(LIBS) $(LIBNAMES) @@ -87,6 +87,9 @@ objects/de.o: src/de.c $(CC) $(CCFLAGS) $(SYSFLAGS) -c -o objects/de.o src/de.c
-
-+objects/gd.o: src/gd.c
-
-$(CC) $(CCFLAGS) $(SYSFLAGS) -c -o objects/gd.o src/gd.c
-.PHONY: clean cleanreqs
-
-clean:
-
-build systemic
-
-move Systemic directory to /usr/local
-
-then:
-
-make -f Makefile.linux
-
-edit .bash_aliases for astrolab user and add:
-
-export LD_LIBRARY_PATH="/usr/local/Systemic:$LD_LIBRARY_PATH"
+added gd.o and gd.c lines to Makefile
