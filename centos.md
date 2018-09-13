@@ -19,7 +19,13 @@ yum groupinstall 'Development Tools'
 
 install vm guest add ons
 
-dnf install java-1.8.0-openjdk-devel f2c wget 2ping libssh R-core R-devel openssh-clients rsync gcc gcc-gfortran emacs gsl-devel R-reshape2 R-stringi R-htmltools R-rmarkdown R-markdown R-gplots R-rlang
+yum install dkms
+
+dnf install java-1.8.0-openjdk-devel f2c wget 2ping libssh  emacs gsl-devel 
+
+R-core R-devel openssh-clients rsync gcc gcc-gfortran
+
+R-reshape2 R-stringi R-htmltools R-rmarkdown R-markdown R-gplots R-rlang
 
 start R
 
